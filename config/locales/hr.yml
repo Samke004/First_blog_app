@@ -1,0 +1,6 @@
+hr:
+  hello: "Pozdrav"
+  devise:
+    sessions:
+      new:
+        sign_in: "Prijavi se"

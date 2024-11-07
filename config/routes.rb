@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "users/show"
+  devise_for :users
   get "pages/home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -14,4 +16,11 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   root "pages#home"
+  
+
+
+  
+  #Define the routes for the users controller
+  resources :users, only: [:show, :edit, :update, :index]
+
 end

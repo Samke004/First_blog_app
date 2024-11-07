@@ -1,0 +1,25 @@
+<h1><%= @user.first_name %> <%= @user.last_name %></h1>
+<p>Email: <%= @user.email %></p>
+
+<p>Contact Emails:</p>
+<ul>
+  <% JSON.parse(@user.contact_emails || "[]").each do |email| %>
+    <li><%= email %></li>
+  <% end %>
+</ul>
+
+<p>Blocked: <%= @user.blocked ? "Yes" : "No" %></p>
+
+<h2>Followers</h2>
+<ul>
+  <% @user.followers.each do |follower| %>
+    <li><%= link_to follower.first_name, user_path(follower) %></li>
+  <% end %>
+</ul>
+
+<h2>Following</h2>
+<ul>
+  <% @user.following.each do |followed| %>
+    <li><%= link_to followed.first_name, user_path(followed) %></li>
+  <% end %>
+</ul>
