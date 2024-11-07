@@ -1,25 +1,15 @@
-<h1><%= @user.first_name %> <%= @user.last_name %></h1>
-<p>Email: <%= @user.email %></p>
+<h1>Korisnički profil</h1>
 
-<p>Contact Emails:</p>
-<ul>
-  <% JSON.parse(@user.contact_emails || "[]").each do |email| %>
-    <li><%= email %></li>
-  <% end %>
-</ul>
+<p><strong>Ime:</strong> <%= @user.first_name %> <%= @user.last_name %></p>
+<p><strong>Email:</strong> <%= @user.email %></p>
 
-<p>Blocked: <%= @user.blocked ? "Yes" : "No" %></p>
+<% if @user.contact_emails.present? %>
+  <p><strong>Dodatni emailovi za kontakt:</strong></p>
+  <ul>
+    <% @user.contact_emails.each do |contact_email| %>
+      <li><%= contact_email %></li>
+    <% end %>
+  </ul>
+<% end %>
 
-<h2>Followers</h2>
-<ul>
-  <% @user.followers.each do |follower| %>
-    <li><%= link_to follower.first_name, user_path(follower) %></li>
-  <% end %>
-</ul>
-
-<h2>Following</h2>
-<ul>
-  <% @user.following.each do |followed| %>
-    <li><%= link_to followed.first_name, user_path(followed) %></li>
-  <% end %>
-</ul>
+<p><strong>Status blokiranja:</strong> <%= @user.blocked ? "Blokiran" : "Aktivan" %></p>
