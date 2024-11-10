@@ -4,3 +4,35 @@ hr:
     sessions:
       new:
         sign_in: "Prijavi se"
+    registrations:
+      user:
+        updated: "Korisnik je uspješno ažuriran"
+        signed_up: "Registracija uspješna"
+        updated_but_not_signed_in: "Korisnik je ažuriran, ali nije prijavljen"
+      edit:
+        current_password: "Trenutna lozinka"
+    passwords:
+      new:
+        forgot_password: "Zaboravili ste lozinku?"
+      edit:
+        change_password: "Promijenite lozinku"
+
+  errors:
+    messages:
+      not_saved: "Nije moguće spremiti %{resource} zbog grešaka:"
+      blank: "ne može biti prazno"
+      confirmation: "potvrda ne odgovara"
+      already_confirmed: "Već je potvrđeno"
+      not_found: "Nije pronađeno"
+      not_locked: "Nije zaključano"
+    attributes:
+      current_password:
+        blank: "Trenutna lozinka je obavezna"
+
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            current_password:
+              blank: "Trenutna lozinka ne može biti prazna"

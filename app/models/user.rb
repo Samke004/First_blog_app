@@ -22,4 +22,8 @@ class User < ApplicationRecord
       self.contact_emails = contact_emails.split(',').map(&:strip)
     end
   end
+
+
+mount_uploader :profile_picture, ProfilePictureUploader
+
 end

@@ -38,6 +38,10 @@ gem "tailwindcss-rails"
 #Add Devise
 gem "devise"
 
+
+#Add ActiveStorage, carrierwave, and image_processing
+gem 'carrierwave', '~> 3.0'
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 

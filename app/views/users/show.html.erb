@@ -1,15 +1,10 @@
 <h1>Korisnički profil</h1>
 
-<p><strong>Ime:</strong> <%= @user.first_name %> <%= @user.last_name %></p>
-<p><strong>Email:</strong> <%= @user.email %></p>
-
-<% if @user.contact_emails.present? %>
-  <p><strong>Dodatni emailovi za kontakt:</strong></p>
-  <ul>
-    <% @user.contact_emails.each do |contact_email| %>
-      <li><%= contact_email %></li>
-    <% end %>
-  </ul>
+<% if @user.profile_picture.present? %>
+  <div class="mb-4">
+    <%= image_tag @user.profile_picture.url(:large), alt: "Profilna slika", class: "w-32 h-32 rounded-full object-cover" %>
+  </div>
 <% end %>
 
-<p><strong>Status blokiranja:</strong> <%= @user.blocked ? "Blokiran" : "Aktivan" %></p>
+<p><strong>Ime:</strong> <%= @user.first_name %> <%= @user.last_name %></p>
+<p><strong>Email:</strong> <%= @user.email %></p>
