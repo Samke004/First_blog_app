@@ -8,3 +8,14 @@
 
 <p><strong>Ime:</strong> <%= @user.first_name %> <%= @user.last_name %></p>
 <p><strong>Email:</strong> <%= @user.email %></p>
+
+<p><strong>Broj pratitelja:</strong> <%= @user.followers.count %></p>
+<p><strong>Broj korisnika koje prati:</strong> <%= @user.following.count %></p>
+
+<% if user_signed_in? %>
+  <% if current_user.following?(@user) %>
+    <%= button_to "Prestani pratiti korisnika", relationship_path(current_user.active_relationships.find_by(followed_id: @user.id)), method: :delete, class: "btn btn-danger" %>
+  <% else %>
+    <%= button_to "Prati korisnika", relationships_path(followed_id: @user.id), method: :post, class: "btn btn-primary" %>
+  <% end %>
+<% end %>

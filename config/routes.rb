@@ -16,7 +16,16 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   root "pages#home"
-  
+
+  #For following and followers
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
+
+  resources :relationships, only: [:create, :destroy]
+
 
 
   

@@ -1,0 +1,15 @@
+<!-- app/views/users/show_follow.html.erb -->
+<h3><%= @title %></h3>
+
+<% if @users && @users.any? %>
+  <ul>
+    <% @users.each do |user| %>
+      <li>
+        <%= link_to "#{user.first_name} #{user.last_name}", user_path(user) %>
+      </li>
+    <% end %>
+  </ul>
+  <%= will_paginate @users %>
+<% else %>
+  <p>Nema korisnika za prikaz.</p>
+<% end %>
