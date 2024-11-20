@@ -1,29 +1,31 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  # Include default Devise modules
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  before_save :parse_contact_emails
-
-  # Overriding Devise method to find user by either primary email or any contact email in JSON array
-  def self.find_for_database_authentication(warden_conditions)
-    conditions = warden_conditions.dup
-    email = conditions.delete(:email)
-
-    # Updated query using explicit JSON casting
-    where(conditions).where(["email = :value OR contact_emails @> :json_value", { value: email, json_value: "[\"#{email}\"]" }]).first
-  end
-
+  # Associations
   has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :following, through: :active_relationships, source: :followed
 
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   has_many :followers, through: :passive_relationships, source: :follower
 
-  
+  # Validations
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :email, presence: true, uniqueness: true
+
+  # Callbacks
+  before_save :parse_contact_emails
+
+  # Methods
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
   def follow(other_user)
-    following << other_user
+    return if self == other_user # Prevent following self
+    following << other_user unless following?(other_user)
   end
 
   def unfollow(other_user)
@@ -34,12 +36,14 @@ class User < ApplicationRecord
     following.include?(other_user)
   end
 
+  # Overriding Devise method to find user by primary email only
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    email = conditions.delete(:email)
 
-
-
-
-
-
+    # Search only by primary email
+    where(conditions).where(email: email).first
+  end
 
   private
 
@@ -49,8 +53,5 @@ class User < ApplicationRecord
     end
   end
 
-
   mount_uploader :profile_picture, ProfilePictureUploader
-
- 
 end

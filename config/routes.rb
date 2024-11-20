@@ -1,35 +1,24 @@
 Rails.application.routes.draw do
-  get "users/show"
+  # Devise routes for user authentication
   devise_for :users
-  get "pages/home"
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
+  # Health check route
+  get "up", to: "rails/health#show", as: :rails_health_check
 
-  # Render dynamic PWA files from app/views/pwa/*
-  get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-  get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
+  # Routes for PWA files
+  get "service-worker", to: "rails/pwa#service_worker", as: :pwa_service_worker
+  get "manifest", to: "rails/pwa#manifest", as: :pwa_manifest
 
-  # Defines the root path route ("/")
-  # root "posts#index"
-
+  # Root path
   root "pages#home"
 
-  #For following and followers
-  resources :users do
+  # User routes with nested relationships
+  resources :users, only: [:show, :edit, :update, :index] do
     member do
-      get :following, :followers
+      get :following
+      get :followers
     end
+
+    resources :relationships, only: [:create, :destroy]
   end
-
-  resources :relationships, only: [:create, :destroy]
-
-
-
-  
-  #Define the routes for the users controller
-  resources :users, only: [:show, :edit, :update, :index]
-
 end

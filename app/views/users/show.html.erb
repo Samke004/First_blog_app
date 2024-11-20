@@ -14,8 +14,9 @@
 
 <% if user_signed_in? %>
   <% if current_user.following?(@user) %>
-    <%= button_to "Prestani pratiti korisnika", relationship_path(current_user.active_relationships.find_by(followed_id: @user.id)), method: :delete, class: "btn btn-danger" %>
+    <%= button_to "Prestani pratiti korisnika", user_relationship_path(current_user, current_user.active_relationships.find_by(followed_id: @user.id)), method: :delete, class: "btn btn-danger" %>
   <% else %>
-    <%= button_to "Prati korisnika", relationships_path(followed_id: @user.id), method: :post, class: "btn btn-primary" %>
+    <%= button_to "Prati korisnika", user_relationships_path(current_user, followed_id: @user.id), method: :post, class: "btn btn-primary" %>
   <% end %>
 <% end %>
+
