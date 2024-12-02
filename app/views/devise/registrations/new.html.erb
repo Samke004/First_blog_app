@@ -18,11 +18,7 @@
     <%= f.email_field :email, autocomplete: "email" %>
   </div>
 
-  <div class="field">
-    <%= f.label :contact_emails, "Additional Contact Emails" %><br />
-    <%= f.text_area :contact_emails, placeholder: 'Enter additional emails separated by commas' %>
-  </div>
-
+  
   <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>

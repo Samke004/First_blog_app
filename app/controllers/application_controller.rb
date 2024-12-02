@@ -5,7 +5,13 @@ class ApplicationController < ActionController::Base
 
   # Devise: Permit additional parameters for sign_up and account_update
   def configure_permitted_parameters
+    # Permit additional parameters for sign_up
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :profile_picture])
+
+    # Permit additional parameters for account_update, including nested attributes
+    devise_parameter_sanitizer.permit(:account_update, keys: [
+      :first_name, :last_name, :profile_picture,
+      contact_emails_attributes: [:id, :email, :_destroy] # Nested attributes
+    ])
   end
 end

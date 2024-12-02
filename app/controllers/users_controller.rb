@@ -15,4 +15,9 @@ class UsersController < ApplicationController
     @users = @user.followers.paginate(page: params[:page])
     render 'show_follow'
   end
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :email, contact_emails_attributes: [:id, :email, :_destroy])
+  end
+  
+
 end

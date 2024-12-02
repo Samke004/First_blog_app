@@ -10,13 +10,19 @@ class User < ApplicationRecord
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   has_many :followers, through: :passive_relationships, source: :follower
 
+  has_many :contact_emails, dependent: :destroy
+  accepts_nested_attributes_for :contact_emails, allow_destroy: true
+  before_save do
+    puts "Before Save: #{contact_emails.inspect}"
+  end
+
   # Validations
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :email, presence: true, uniqueness: true
 
   # Callbacks
-  before_save :parse_contact_emails
+  before_save :normalize_contact_emails
 
   # Methods
   def full_name
@@ -47,9 +53,9 @@ class User < ApplicationRecord
 
   private
 
-  def parse_contact_emails
-    if contact_emails.is_a?(String)
-      self.contact_emails = contact_emails.split(',').map(&:strip)
+  def normalize_contact_emails
+    contact_emails.each do |contact_email|
+      contact_email.email = contact_email.email.strip.downcase if contact_email.email.present?
     end
   end
 
