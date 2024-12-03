@@ -5,9 +5,9 @@ class PostsController < ApplicationController
     def show
         @post = Post.find(params[:id])
       end
-    def index
+      def index
         @user = User.find(params[:user_id])
-    
+        
         if @user == current_user
           @posts = @user.posts.order(publication_date: :desc).page(params[:page]).per(5)
         elsif user_signed_in?
@@ -15,6 +15,8 @@ class PostsController < ApplicationController
         else
           @posts = @user.posts.where(public: true, published: true).order(publication_date: :desc).page(params[:page]).per(5)
         end
+      
+        Rails.logger.debug("Loaded posts: #{@posts.map(&:title).inspect}") # Logiranje naslova objava
       end
   
     def new
