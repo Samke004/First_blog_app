@@ -1,4 +1,20 @@
 hr:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            first_name:
+              blank: "Ime je obavezno."
+            last_name:
+              blank: "Prezime je obavezno."
+      messages:
+        record_invalid: "Validacija nije uspjela: %{errors}"
+    attributes:
+      user:
+        first_name: "Ime"
+        last_name: "Prezime"
+
   devise:
     confirmations:
       confirmed: Vaša adresa e-pošte uspješno je potvrđena.
@@ -45,7 +61,7 @@ hr:
       signed_out: Uspješno ste odjavljeni.
     unlocks:
       send_instructions: Primit ćete e-poštu s uputama kako otključati Vaš račun za nekoliko minuta. Molimo provjerite neželjenu poštu, ako niste primili ovu e-poštu.
-      send_paranoid_instructions: Ako Vaš račun postoji, za nekoliko minuta primit ćete e-poštu s uputama kako ga otključati. Molimo provjerite mapu neželjene pošte, ako niste primili ovu e-poštu.
+      send_paranoid_instructions: Ako Vaš račun postoji, za nekoliko minuta primit ćete e-poštu s uputama kako ga otključati. Molimo provjerite mapu s neželjenom poštom, ako niste primili ovu e-poštu.
       unlocked: Vaš je račun uspješno otključan. Molimo prijavite se za nastavak.
   errors:
     messages:
@@ -54,3 +70,4 @@ hr:
       expired: je istekao, zatražite novi
       not_found: nije pronađen
       not_locked: nije zaključan
+      blank: "Ne može biti prazno."

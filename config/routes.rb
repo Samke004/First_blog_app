@@ -9,6 +9,12 @@ Rails.application.routes.draw do
   get "service-worker", to: "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest", to: "rails/pwa#manifest", as: :pwa_manifest
 
+
+  resources :users do
+    resources :posts
+  end
+
+
   # Root path
   root "pages#home"
 

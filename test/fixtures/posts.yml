@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  short_description: MyString
+  content: MyText
+  publication_date: 2024-12-03
+  public: false
+  published: false
+  user: one
+
+two:
+  title: MyString
+  short_description: MyString
+  content: MyText
+  publication_date: 2024-12-03
+  public: false
+  published: false
+  user: two

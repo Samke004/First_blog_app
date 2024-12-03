@@ -1,0 +1,19 @@
+<h1><%= @user.first_name %> <%= @user.last_name %>'s Posts</h1>
+
+<% @posts.each do |post| %>
+  <div class="post border rounded p-4 mb-4">
+    <h2><%= post.title %></h2>
+    <p><%= post.short_description %></p>
+    <small>Published on: <%= post.publication_date %></small>
+
+    <% if post.published? %>
+      <p><%= link_to "Read More", user_post_path(@user, post), class: "text-blue-500 underline" %></p>
+    <% else %>
+      <% if @user == current_user %>
+        <p><em>Unpublished</em></p>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+
+
