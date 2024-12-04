@@ -1,0 +1,5 @@
+<h1><%= @post.title %></h1>
+<p><%= @post.short_description %></p>
+<p><%= @post.content %></p>
+<p><%= @post.publication_date.strftime("%d.%m.%Y") if @post.publication_date %></p>
+<%= image_tag @post.image if @post.image.attached? %>

@@ -9,10 +9,17 @@ Rails.application.routes.draw do
   get "service-worker", to: "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest", to: "rails/pwa#manifest", as: :pwa_manifest
 
+  # Posts routes (global)
+  resources :posts, only: [:index, :show]
+
   # User routes
   resources :users, only: [:show, :edit, :update, :index] do
     # Nested posts routes
-    resources :posts
+    resources :posts, only: [:index, :new, :create, :edit, :update, :destroy] do
+      collection do
+        get :sort # Route for sorting posts
+      end
+    end
 
     # Member routes for following and followers
     member do

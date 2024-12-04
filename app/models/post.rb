@@ -1,10 +1,10 @@
 class Post < ApplicationRecord
   belongs_to :user
+  has_one_attached :image
 
-  validates :title, :short_description, :content, :publication_date, presence: true
+  # Scope za objavljene objave
+  scope :published, -> { where(published: true).where("publication_date <= ?", Time.current) }
 
-  # Provjera da li je objava objavljena
-  def published?
-    published && publication_date <= Date.today
-  end
+  # Scope za javno dostupne objave
+  scope :public_posts, -> { published.where(public: true) }
 end
