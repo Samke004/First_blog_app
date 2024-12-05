@@ -9,28 +9,34 @@ Rails.application.routes.draw do
   get "service-worker", to: "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest", to: "rails/pwa#manifest", as: :pwa_manifest
 
-  # Posts routes (global)
-  resources :posts, only: [:index, :show]
+  # Root path
+  root "pages#home"
 
-  # User routes
+  # Global posts routes
+  resources :posts, only: [:index, :show] do
+    # Comments nested under posts
+    resources :comments, only: [:create, :destroy], shallow: true
+  end
+
+  # User-specific routes
   resources :users, only: [:show, :edit, :update, :index] do
-    # Nested posts routes
-    resources :posts, only: [:index, :new, :create, :edit, :update, :destroy] do
-      collection do
-        get :sort # Route for sorting posts
-      end
-    end
-
-    # Member routes for following and followers
+    # Routes for following and followers
     member do
       get :following
       get :followers
     end
 
-    # Nested relationships routes
+    # Relationships nested under users
     resources :relationships, only: [:create, :destroy]
-  end
 
-  # Root path
-  root "pages#home"
+    # Nested routes for user-specific posts
+    resources :posts, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
+      collection do
+        get :sort # Route for sorting posts
+      end
+
+      # Comments nested under user-specific posts
+      resources :comments, only: [:create, :destroy], shallow: true
+    end
+  end
 end

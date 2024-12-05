@@ -3,3 +3,20 @@
 <p><%= @post.content %></p>
 <p><%= @post.publication_date.strftime("%d.%m.%Y") if @post.publication_date %></p>
 <%= image_tag @post.image if @post.image.attached? %>
+<h2>Komentari</h2>
+
+<div id="comments">
+  <%= render @post.comments %>
+</div>
+
+<% if user_signed_in? %>
+  <%= form_with model: [@post, Comment.new], local: false do |form| %>
+    <div class="form-group">
+      <%= form.text_area :content, rows: 3, class: "form-control", placeholder: "Dodaj komentar..." %>
+    </div>
+    <%= form.submit "Dodaj komentar", class: "btn btn-primary" %>
+  <% end %>
+<% else %>
+  <p>Prijavite se kako biste mogli komentirati.</p>
+<% end %>
+

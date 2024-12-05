@@ -1,40 +1,41 @@
 <%= form_with model: @post, local: true do |form| %>
   <div class="form-group">
     <%= form.label :title, "Naslov" %>
-    <%= form.text_field :title, class: "form-control", required: true %>
+    <%= form.text_field :title, class: "form-control", required: true, placeholder: "Unesite naslov..." %>
   </div>
 
   <div class="form-group">
     <%= form.label :short_description, "Kratki opis" %>
-    <%= form.text_area :short_description, class: "form-control", rows: 3 %>
+    <%= form.text_area :short_description, class: "form-control", rows: 3, placeholder: "Unesite kratki opis..." %>
   </div>
 
   <div class="form-group">
-  <%= form.label :content, "Sadržaj" %>
-  <%= form.text_area :content, data: { controller: "tinymce" }, class: "form-control" %>
+    <%= form.label :content, "Sadržaj" %>
+    <%= form.text_area :content, data: { controller: "tinymce" }, class: "form-control", placeholder: "Unesite sadržaj..." %>
   </div>
-
 
   <div class="form-group">
     <%= form.label :image, "Slika" %>
     <%= form.file_field :image, class: "form-control" %>
   </div>
 
-
   <div class="form-group">
     <%= form.label :publication_date, "Datum objave" %>
-    <%= form.datetime_field :publication_date, class: "form-control" %>
+    <%= form.datetime_field :publication_date, class: "form-control", placeholder: "Odaberite datum i vrijeme..." %>
+  </div>
+
+  <div class="form-group form-check">
+    <%= form.check_box :public, class: "form-check-input" %>
+    <%= form.label :public, "Javna", class: "form-check-label" %>
+  </div>
+
+  <div class="form-group form-check">
+    <%= form.check_box :published, class: "form-check-input" %>
+    <%= form.label :published, "Objavljeno", class: "form-check-label" %>
   </div>
 
   <div class="form-group">
-    <%= form.check_box :public %>
-    <%= form.label :public, "Javna" %>
+    <%= form.submit "Spremi", class: "btn btn-primary" %>
+    <%= link_to "Poništi", posts_path, class: "btn btn-secondary ml-2" %>
   </div>
-
-  <div class="form-group">
-    <%= form.check_box :published %>
-    <%= form.label :published, "Objavljeno" %>
-  </div>
-
-  <%= form.submit class: "btn btn-primary" %>
 <% end %>

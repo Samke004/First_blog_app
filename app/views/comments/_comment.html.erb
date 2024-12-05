@@ -1,0 +1,6 @@
+<div class="comment">
+  <p><strong><%= "#{comment.user.first_name} #{comment.user.last_name}" %>:</strong> <%= comment.content %></p>
+  <% if comment.user == current_user %>
+    <%= link_to "Obriši", comment_path(comment), method: :delete, remote: true, class: "btn btn-danger btn-sm" %>
+  <% end %>
+</div>
