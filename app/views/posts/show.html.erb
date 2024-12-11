@@ -1,22 +1,30 @@
-<h1><%= @post.title %></h1>
-<p><%= @post.short_description %></p>
-<p><%= @post.content %></p>
-<p><%= @post.publication_date.strftime("%d.%m.%Y") if @post.publication_date %></p>
-<%= image_tag @post.image if @post.image.attached? %>
-<h2>Komentari</h2>
+<h1 class="text-2xl font-bold text-gray-800 mb-4"><%= @post.title %></h1>
+<p class="text-gray-600 text-lg mb-4"><%= @post.short_description %></p>
+<p class="text-gray-700 mb-4"><%= @post.content %></p>
+<% if @post.publication_date %>
+  <p class="text-sm text-gray-500 mb-4">
+    <strong>Datum objave:</strong> <%= @post.publication_date.strftime("%d.%m.%Y") %>
+  </p>
+<% end %>
+<% if @post.image.attached? %>
+  <%= image_tag @post.image, class: "w-full h-auto rounded-lg shadow-md mb-6" %>
+<% end %>
 
-<div id="comments">
+<h2 class="text-xl font-semibold text-gray-800 mb-4">Komentari</h2>
+
+<div id="comments" class="space-y-4">
   <%= render @post.comments %>
 </div>
 
 <% if user_signed_in? %>
-  <%= form_with model: [@post, Comment.new] do |form| %>
-  <div class="form-group">
-    <%= form.text_area :content, rows: 3, class: "form-control", placeholder: "Dodaj komentar..." %>
+  <div class="mt-6">
+    <%= form_with model: [@post, Comment.new], class: "space-y-4" do |form| %>
+      <div>
+        <%= form.text_area :content, rows: 3, class: "w-full border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-green-200 p-2", placeholder: "Dodaj komentar..." %>
+      </div>
+      <%= form.submit "Dodaj komentar", class: "bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md" %>
+    <% end %>
   </div>
-  <%= form.submit "Dodaj komentar", class: "btn btn-primary" %>
-  <% end %>
 <% else %>
-  <p>Prijavite se kako biste mogli komentirati.</p>
+  <p class="text-sm text-gray-500 mt-4">Prijavite se kako biste mogli komentirati.</p>
 <% end %>
-

@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   # Global posts routes
 resources :posts, only: [:index, :show] do
   # Comments nested under posts
-  resources :comments, only: [:create, :destroy, :show], shallow: true
+  resources :comments, only: [:create, :destroy], shallow: true
 end
 
 # User-specific routes
@@ -36,7 +36,7 @@ resources :users, only: [:show, :edit, :update, :index] do
     end
 
     # Comments nested under user-specific posts
-    resources :comments, only: [:create, :destroy, :show], shallow: true
+    resources :comments, only: [:create, :destroy], shallow: true
   end
 end
 end
