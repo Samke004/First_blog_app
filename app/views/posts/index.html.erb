@@ -1,17 +1,27 @@
-<h1>Objave korisnika <%= @user.first_name %> <%= @user.last_name %></h1>
+<h1 class="text-2xl font-bold mb-6">Objave korisnika <%= @user.first_name %> <%= @user.last_name %></h1>
 
-<div class="sort-links">
-  <p>Sortiraj po datumu:</p>
-  <%= link_to "Najstarije prvo", user_posts_path(@user, sort: "asc"), class: "btn btn-light" %>
-  <%= link_to "Najnovije prvo", user_posts_path(@user, sort: "desc"), class: "btn btn-light" %>
+<div class="sort-links mb-6">
+  <p class="text-gray-700 font-medium mb-2">Sortiraj po datumu:</p>
+  <div class="flex space-x-4">
+    <%= link_to "Najstarije prvo", user_posts_path(@user, sort: "asc"), 
+                class: "bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg shadow" %>
+    <%= link_to "Najnovije prvo", user_posts_path(@user, sort: "desc"), 
+                class: "bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg shadow" %>
+  </div>
 </div>
 
 <% @posts.each do |post| %>
-  <div class="post">
-    <h2><%= link_to post.title, user_post_path(@user, post) %></h2>
-    <p><%= post.short_description %></p>
-    <p><strong>Datum objave:</strong> <%= post.publication_date.strftime("%d.%m.%Y") %></p>
+  <div class="post mb-6 bg-white shadow-md rounded-lg p-6">
+    <h2 class="text-xl font-semibold text-blue-600 hover:underline">
+      <%= link_to post.title, user_post_path(@user, post) %>
+    </h2>
+    <p class="text-gray-700 mt-2 mb-4"><%= post.short_description %></p>
+    <p class="text-sm text-gray-500">
+      <strong>Datum objave:</strong> <%= post.publication_date.strftime("%d.%m.%Y") %>
+    </p>
   </div>
 <% end %>
 
-<%= paginate @posts, pagination_class: 'flex justify-center mt-4' %>
+<div class="mt-6">
+  <%= paginate @posts %>
+</div>

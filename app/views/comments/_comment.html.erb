@@ -1,6 +1,8 @@
-<div class="comment">
+<div id="comment-<%= comment.id %>">
   <p><strong><%= "#{comment.user.first_name} #{comment.user.last_name}" %>:</strong> <%= comment.content %></p>
   <% if comment.user == current_user %>
-    <%= link_to "Obriši", comment_path(comment), method: :delete, remote: true, class: "btn btn-danger btn-sm" %>
+    <%= link_to "Obriši", comment_path(comment), method: :delete, 
+                  data: { turbo_confirm: "Jeste li sigurni da želite obrisati komentar?" }, 
+                  class: "bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg" %>
   <% end %>
 </div>

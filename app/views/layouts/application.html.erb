@@ -42,7 +42,7 @@
         <!-- User Navigation Links -->
         <div class="flex items-center space-x-6">
           <% if user_signed_in? %>
-            <%= link_to "Edit Profile", edit_user_registration_path, class: "hover:underline" %>
+            <%= link_to "My Profile", user_path(current_user), class: "hover:underline" %>
             <%= link_to "Sign Out", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "hover:underline" %>
           <% else %>
             <%= link_to "Sign Up", new_user_registration_path, class: "hover:underline" %>

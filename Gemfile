@@ -31,8 +31,11 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
+
+
+
 #Add Kaminari
-gem 'kaminari'
+gem 'kaminari', '~> 1.2'
 
 #Add TailwindCSS
 gem "tailwindcss-rails"

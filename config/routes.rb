@@ -13,30 +13,30 @@ Rails.application.routes.draw do
   root "pages#home"
 
   # Global posts routes
-  resources :posts, only: [:index, :show] do
-    # Comments nested under posts
-    resources :comments, only: [:create, :destroy], shallow: true
+resources :posts, only: [:index, :show] do
+  # Comments nested under posts
+  resources :comments, only: [:create, :destroy, :show], shallow: true
+end
+
+# User-specific routes
+resources :users, only: [:show, :edit, :update, :index] do
+  # Routes for following and followers
+  member do
+    get :following
+    get :followers
   end
 
-  # User-specific routes
-  resources :users, only: [:show, :edit, :update, :index] do
-    # Routes for following and followers
-    member do
-      get :following
-      get :followers
+  # Relationships nested under users
+  resources :relationships, only: [:create, :destroy]
+
+  # Nested routes for user-specific posts
+  resources :posts, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
+    collection do
+      get :sort # Route for sorting posts
     end
 
-    # Relationships nested under users
-    resources :relationships, only: [:create, :destroy]
-
-    # Nested routes for user-specific posts
-    resources :posts, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
-      collection do
-        get :sort # Route for sorting posts
-      end
-
-      # Comments nested under user-specific posts
-      resources :comments, only: [:create, :destroy], shallow: true
-    end
+    # Comments nested under user-specific posts
+    resources :comments, only: [:create, :destroy, :show], shallow: true
   end
+end
 end

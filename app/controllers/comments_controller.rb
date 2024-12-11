@@ -17,12 +17,12 @@ class CommentsController < ApplicationController
     end
   
     def destroy
-      @comment = current_user.comments.find(params[:id])
-      @post = @comment.post
+      @comment = Comment.find(params[:id])
       @comment.destroy
+  
       respond_to do |format|
-        format.html { redirect_to @post }
-        format.js
+        format.turbo_stream # Vraća Turbo Stream odgovor
+        format.html { redirect_to post_path(@comment.post), notice: "Komentar je uspešno obrisan." }
       end
     end
   

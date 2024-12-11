@@ -6,9 +6,10 @@ class UsersController < ApplicationController
   def following
     @title = "Praćenje"
     @user = User.find(params[:id])
-    @users = @user.following.paginate(page: params[:page])
+    @users = @user.following.page(params[:page]).per(10) # Kaminari paginacija
     render 'show_follow'
   end
+  
   def followers
     @title = "Pratitelji"
     @user = User.find(params[:id])

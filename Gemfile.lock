@@ -354,7 +354,7 @@ DEPENDENCIES
   faker
   importmap-rails
   jbuilder
-  kaminari
+  kaminari (~> 1.2)
   mini_magick
   pg (~> 1.1)
   puma (>= 5.0)
