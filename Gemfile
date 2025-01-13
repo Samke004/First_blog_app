@@ -47,7 +47,7 @@ gem "devise"
 gem "faker"
 
 #Add ActiveStorage, carrierwave, and image_processing
-gem 'carrierwave', '~> 3.0'
+gem 'carrierwave', '~> 3.1'
 
 
 

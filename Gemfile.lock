@@ -77,8 +77,8 @@ GEM
     ast (2.4.2)
     base64 (0.2.0)
     bcrypt (3.1.20)
-    benchmark (0.3.0)
-    bigdecimal (3.1.8)
+    benchmark (0.4.0)
+    bigdecimal (3.1.9)
     bindex (0.8.1)
     bootsnap (1.18.4)
       msgpack (~> 1.2)
@@ -94,7 +94,7 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
-    carrierwave (3.0.7)
+    carrierwave (3.1.1)
       activemodel (>= 6.0.0)
       activesupport (>= 6.0.0)
       addressable (~> 2.6)
@@ -102,7 +102,7 @@ GEM
       marcel (~> 1.0.0)
       ssrf_filter (~> 1.0)
     concurrent-ruby (1.3.4)
-    connection_pool (2.4.1)
+    connection_pool (2.5.0)
     crass (1.0.6)
     date (3.4.0)
     debug (1.9.2)
@@ -118,12 +118,12 @@ GEM
     erubi (1.13.0)
     faker (3.5.1)
       i18n (>= 1.8.11, < 2)
-    ffi (1.17.0-aarch64-linux-gnu)
-    ffi (1.17.0-arm-linux-gnu)
-    ffi (1.17.0-arm64-darwin)
-    ffi (1.17.0-x86-linux-gnu)
-    ffi (1.17.0-x86_64-darwin)
-    ffi (1.17.0-x86_64-linux-gnu)
+    ffi (1.17.1-aarch64-linux-gnu)
+    ffi (1.17.1-arm-linux-gnu)
+    ffi (1.17.1-arm64-darwin)
+    ffi (1.17.1-x86-linux-gnu)
+    ffi (1.17.1-x86_64-darwin)
+    ffi (1.17.1-x86_64-linux-gnu)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.6)
@@ -156,7 +156,7 @@ GEM
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
     language_server-protocol (3.17.0.3)
-    logger (1.6.1)
+    logger (1.6.5)
     loofah (2.23.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -169,7 +169,7 @@ GEM
     matrix (0.4.2)
     mini_magick (4.13.2)
     mini_mime (1.1.5)
-    minitest (5.25.1)
+    minitest (5.25.4)
     msgpack (1.7.3)
     net-imap (0.5.0)
       date
@@ -285,7 +285,7 @@ GEM
       ffi (~> 1.12)
       logger
     rubyzip (2.3.2)
-    securerandom (0.3.1)
+    securerandom (0.4.1)
     selenium-webdriver (4.26.0)
       base64 (~> 0.2)
       logger (~> 1.4)
@@ -348,7 +348,7 @@ DEPENDENCIES
   bootsnap
   brakeman
   capybara
-  carrierwave (~> 3.0)
+  carrierwave (~> 3.1)
   debug
   devise
   faker
