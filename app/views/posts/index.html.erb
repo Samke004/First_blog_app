@@ -22,6 +22,5 @@
   </div>
 <% end %>
 
-<div class="mt-6">
-  <%= paginate @posts %>
-</div>
+<%= render 'kaminari/paginator', collection: @posts %>
+

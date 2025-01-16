@@ -6,7 +6,12 @@
     <%= link_to "Pregled svih korisnika", users_path, 
                 class: "bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
 
-    <%= link_to "Korisnici koje pratim", following_user_path(current_user), 
-                class: "bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" %>
+    <% if current_user %>
+  <%= link_to "Korisnici koje pratim", following_user_path(current_user), 
+              class: "bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" %>
+<% else %>
+  <p>Please log in to see the users you follow.</p>
+<% end %>
+
   </div>
 </div>
