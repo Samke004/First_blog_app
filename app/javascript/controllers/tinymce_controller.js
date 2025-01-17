@@ -1,33 +1,32 @@
 import { Controller } from "@hotwired/stimulus";
-import tinymce from "tinymce/tinymce";
-import "tinymce/themes/silver";
+import tinymce from "tinymce";
+
+// Uvezite osnovne resurse
 import "tinymce/icons/default";
+import "tinymce/themes/silver";
+import "tinymce/models/dom";
+
+// Opcionalno: dodatni alati
 import "tinymce/plugins/lists";
-import "tinymce/plugins/textcolor";
-import "tinymce/plugins/colorpicker";
-import "tinymce/plugins/fullscreen";
+import "tinymce/plugins/link";
+import "tinymce/plugins/image";
 
 export default class extends Controller {
+  static targets = ["editor"];
+
   connect() {
     tinymce.init({
-      target: this.element,
+      target: this.editorTarget, // Povežite editor s target elementom
+      plugins: ["lists", "link", "image"],
+      toolbar: "undo redo | formatselect | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link image",
       menubar: false,
-      plugins: "lists textcolor colorpicker fullscreen",
-      toolbar:
-        "undo redo | bold italic | forecolor backcolor | fontsize | alignleft aligncenter alignright | bullist numlist",
-      toolbar_mode: "floating",
-      contextmenu: false,
-      setup: (editor) => {
-        editor.on("change", () => {
-          this.element.value = editor.getContent();
-        });
-      },
+      height: 300,
     });
   }
 
   disconnect() {
-    if (tinymce.get(this.element.id)) {
-      tinymce.get(this.element.id).remove();
+    if (tinymce.get(this.editorTarget.id)) {
+      tinymce.get(this.editorTarget.id).remove();
     }
   }
 }

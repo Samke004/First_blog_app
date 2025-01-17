@@ -26,7 +26,7 @@ end
   end
 
   def new
-    @post = current_user.posts.new
+    @post = Post.new
   end
 
   def create
