@@ -47,11 +47,21 @@ end
       render :edit
     end
   end
-
   def destroy
+    @post = Post.find(params[:id])
     @post.destroy
-    redirect_to user_posts_path(current_user), notice: "Objava uspješno obrisana."
+  
+    respond_to do |format|
+      format.turbo_stream # Turbo Stream odgovor za dinamičko ažuriranje
+      format.html { redirect_to user_posts_path(@post.user), notice: "Objava je uspešno obrisana." }
+    end
   end
+  
+  
+  
+  
+    
+    
 
   private
 

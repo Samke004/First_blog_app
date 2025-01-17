@@ -11,7 +11,7 @@
 </div>
 
 <% @posts.each do |post| %>
-  <div class="post mb-6 bg-white shadow-md rounded-lg p-6">
+  <div id="post-<%= post.id %>" class="post mb-6 bg-white shadow-md rounded-lg p-6">
     <h2 class="text-xl font-semibold text-blue-600 hover:underline">
       <%= link_to post.title, user_post_path(@user, post) %>
     </h2>
@@ -19,8 +19,19 @@
     <p class="text-sm text-gray-500">
       <strong>Datum objave:</strong> <%= post.publication_date.strftime("%d.%m.%Y") %>
     </p>
+
+    <% if post.user == current_user %>
+      <div class="mt-4 flex space-x-4">
+    <%= link_to "Uredi", edit_user_post_path(@user, post), 
+                class: "bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded-lg" %>
+    <%= button_to "Obriši", user_post_path(@user, post), method: :delete, 
+                  form: { data: { turbo_confirm: "Jeste li sigurni da želite obrisati ovu objavu?" } }, 
+                  class: "bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg" %>
+  </div>
+    <% end %>
   </div>
 <% end %>
+
 
 <%= render 'kaminari/paginator', collection: @posts %>
 

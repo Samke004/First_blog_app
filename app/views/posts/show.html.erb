@@ -8,7 +8,7 @@
   </p>
 <% end %>
 
-<% if @post.image? %> <!-- Provjera postoji li slika u CarrierWave-u -->
+<% if @post.image? %>
   <div class="mb-6">
     <%= image_tag @post.image.url, class: "w-full h-auto rounded-lg shadow-md" %>
   </div>
@@ -29,6 +29,13 @@
       <%= form.submit "Dodaj komentar", class: "bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md" %>
     <% end %>
   </div>
+
+  <% if @post.user == current_user %>
+    <div class="mt-6 flex justify-end space-x-4">
+      <%= link_to "Uredi", edit_user_post_path(@post.user, @post), class: "bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md" %>
+      <%= button_to "Obriši", user_post_path(@post.user, @post), method: :delete, data: { turbo_confirm: "Jeste li sigurni da želite obrisati ovu objavu?" }, class: "bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md" %>
+    </div>
+  <% end %>
 <% else %>
   <p class="text-sm text-gray-500 mt-4">Prijavite se kako biste mogli komentirati.</p>
 <% end %>
