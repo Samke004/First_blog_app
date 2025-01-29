@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-tinymce@^7.6.0:
-  version "7.6.0"
-  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-7.6.0.tgz#476069a3e98f46f3f6e7875ca878313d6b3345b9"
-  integrity sha512-kUrklnD7H8JbpSDEGRh51GKK6Mrf+pR9neSDzUHvXKV+2oRtMB7sqfAtEOnM0/WKdstwaX0qoNCZNo2H1Y0EFA==
+tinymce@^7.6.1:
+  version "7.6.1"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-7.6.1.tgz#f35990f6e9c2f90220939f545ac032e3d9301b05"
+  integrity sha512-5cHhaAoyyTHfAVTInNfoSp0KkUHmeVUbGSu37QKQbOFIPqxYPhqBiaLm1WVLgoNBYOHRProVc3xzxnNTeWHyoQ==

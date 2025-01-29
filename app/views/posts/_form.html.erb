@@ -1,41 +1,41 @@
-<%= form_with model: [current_user, @post], local: true do |form| %>
-  <div class="form-group">
-    <%= form.label :title, "Naslov" %>
-    <%= form.text_field :title, class: "form-control", required: true, placeholder: "Unesite naslov..." %>
+<%= form_with model: [current_user, @post], local: true, html: { class: "space-y-6 bg-white p-6 rounded-lg shadow-lg" } do |form| %>
+  <div>
+    <%= form.label :title, "Naslov", class: "block text-gray-700 font-semibold mb-1" %>
+    <%= form.text_field :title, class: "w-full border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200 p-2", required: true, placeholder: "Unesite naslov..." %>
   </div>
 
-  <div class="form-group">
-    <%= form.label :short_description, "Kratki opis" %>
-    <%= form.text_area :short_description, class: "form-control", rows: 3, placeholder: "Unesite kratki opis..." %>
+  <div>
+    <%= form.label :short_description, "Kratki opis", class: "block text-gray-700 font-semibold mb-1" %>
+    <%= form.text_area :short_description, class: "w-full border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200 p-2", rows: 3, placeholder: "Unesite kratki opis..." %>
   </div>
 
-  <div class="form-group">
-    <%= form.label :content, "Sadržaj" %>
-    <%= form.text_area :content, data: { controller: "tinymce", tinymce_target: "editor" }, class: "form-control", placeholder: "Unesite sadržaj..." %>
+  <div>
+    <%= form.label :content, "Sadržaj", class: "block text-gray-700 font-semibold mb-1" %>
+    <%= form.text_area :content, data: { controller: "tinymce", tinymce_target: "editor" }, class: "w-full border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200 p-2", placeholder: "Unesite sadržaj..." %>
   </div>
 
-  <div class="form-group">
-    <%= form.label :image, "Slika" %>
-    <%= form.file_field :image, class: "form-control" %>
+  <div>
+    <%= form.label :image, "Slika", class: "block text-gray-700 font-semibold mb-1" %>
+    <%= form.file_field :image, class: "w-full border border-gray-300 rounded-lg shadow-sm p-2 cursor-pointer" %>
   </div>
 
-  <div class="form-group">
-    <%= form.label :publication_date, "Datum objave" %>
-    <%= form.datetime_field :publication_date, class: "form-control", placeholder: "Odaberite datum i vrijeme..." %>
+  <div>
+    <%= form.label :publication_date, "Datum objave", class: "block text-gray-700 font-semibold mb-1" %>
+    <%= form.date_field :publication_date, class: "w-full border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200 p-2" %>
   </div>
 
-  <div class="form-group form-check">
-    <%= form.check_box :public, class: "form-check-input" %>
-    <%= form.label :public, "Javna", class: "form-check-label" %>
+  <div class="flex items-center space-x-3">
+    <%= form.check_box :public, class: "h-5 w-5 text-blue-600" %>
+    <%= form.label :public, "Javna", class: "text-gray-700" %>
   </div>
 
-  <div class="form-group form-check">
-    <%= form.check_box :published, class: "form-check-input" %>
-    <%= form.label :published, "Objavljeno", class: "form-check-label" %>
+  <div class="flex items-center space-x-3">
+    <%= form.check_box :published, class: "h-5 w-5 text-green-600" %>
+    <%= form.label :published, "Objavljeno", class: "text-gray-700" %>
   </div>
 
-  <div class="form-group">
-    <%= form.submit "Spremi", class: "btn btn-primary" %>
-    <%= link_to "Poništi", user_posts_path(current_user), class: "btn btn-secondary ml-2" %>
+  <div class="flex justify-end space-x-4">
+    <%= form.submit "Spremi", class: "bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-all" %>
+    <%= link_to "Poništi", user_posts_path(current_user), class: "bg-gray-400 hover:bg-gray-500 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-all" %>
   </div>
 <% end %>

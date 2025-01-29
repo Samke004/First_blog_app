@@ -1,32 +1,27 @@
 import { Controller } from "@hotwired/stimulus";
-import tinymce from "tinymce";
-
-// Uvezite osnovne resurse
-import "tinymce/icons/default";
-import "tinymce/themes/silver";
-import "tinymce/models/dom";
-
-// Opcionalno: dodatni alati
-import "tinymce/plugins/lists";
-import "tinymce/plugins/link";
-import "tinymce/plugins/image";
+import "/vendor/tinymce/tinymce.min.js"; // Učitaj TinyMCE globalno
 
 export default class extends Controller {
-  static targets = ["editor"];
-
   connect() {
-    tinymce.init({
-      target: this.editorTarget, // Povežite editor s target elementom
-      plugins: ["lists", "link", "image"],
-      toolbar: "undo redo | formatselect | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link image",
-      menubar: false,
-      height: 300,
-    });
+    if (!this.element.dataset.tinymceInitialized) {
+      this.element.dataset.tinymceInitialized = true;
+
+      globalThis.tinymce.init({
+        selector: "textarea[data-controller='tinymce']", // Cilja textarea
+        plugins: "link lists table code",
+        toolbar: "undo redo | bold italic | alignleft aligncenter alignright | bullist numlist | link table | code",
+        menubar: false,
+        branding: false,
+        height: 300,
+
+        // ✅ Ispravi putanje do TinyMCE fajlova
+        base_url: "/vendor/tinymce", // Postavlja baznu URL putanju
+        suffix: ".min", // Dodaje `.min.js` na krajeve fajlova
+      });
+    }
   }
 
   disconnect() {
-    if (tinymce.get(this.editorTarget.id)) {
-      tinymce.get(this.editorTarget.id).remove();
-    }
+    globalThis.tinymce.remove();
   }
 }
