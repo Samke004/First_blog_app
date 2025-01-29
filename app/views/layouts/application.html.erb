@@ -34,11 +34,11 @@
         <!-- User Navigation Links -->
         <div class="flex items-center space-x-6">
           <% if user_signed_in? %>
-            <%= link_to "My Profile", user_path(current_user), class: "hover:underline" %>
-            <%= link_to "Sign Out", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "hover:underline" %>
+            <%= link_to "Moj profil", user_path(current_user), class: "hover:underline" %>
+            <%= link_to "Odjava", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "hover:underline" %>
           <% else %>
-            <%= link_to "Sign Up", new_user_registration_path, class: "hover:underline" %>
-            <%= link_to "Sign In", new_user_session_path, class: "hover:underline" %>
+            <%= link_to "Novi korisnik", new_user_registration_path, class: "hover:underline" %>
+            <%= link_to "Prijava", new_user_session_path, class: "hover:underline" %>
           <% end %>
         </div>
       </div>

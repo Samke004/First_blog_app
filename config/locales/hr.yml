@@ -71,3 +71,19 @@ hr:
       not_found: nije pronađen
       not_locked: nije zaključan
       blank: "Ne može biti prazno."
+
+  posts:
+    title: "Naslov"
+    short_description: "Kratki opis"
+    content: "Sadržaj"
+    image: "Slika"
+    publication_date: "Datum objave"
+    public: "Javna"
+    published: "Objavljeno"
+    new_post: "Nova objava"
+    edit: "Uredi"
+    delete: "Obriši"
+    confirm_delete: "Jeste li sigurni da želite obrisati ovu objavu?"
+    sort:
+      oldest_first: "Najstarije prvo"
+      newest_first: "Najnovije prvo"

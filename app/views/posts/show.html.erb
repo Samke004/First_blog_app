@@ -20,13 +20,15 @@
 
 <h2 class="text-xl font-semibold text-gray-800 mb-4">Komentari</h2>
 
-<div id="comments" class="space-y-4">
-  <%= render @post.comments %>
-</div>
+<turbo-frame id="comments">
+  <div id="comments" class="space-y-4">
+    <%= render @post.comments %>
+  </div>
+</turbo-frame>
 
 <% if user_signed_in? %>
   <div class="mt-6">
-    <%= form_with model: [@post, Comment.new], class: "space-y-4" do |form| %>
+    <%= form_with model: [@post, Comment.new], data: { turbo_frame: "comments" }, class: "space-y-4" do |form| %>
       <div>
         <%= form.text_area :content, rows: 3, class: "w-full border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-green-200 p-2", placeholder: "Dodaj komentar..." %>
       </div>

@@ -1,5 +1,8 @@
 class User < ApplicationRecord
-  # Include default Devise modules
+  # Uploaders
+  mount_uploader :profile_picture, ProfilePictureUploader
+
+  # Devise modules
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
@@ -15,9 +18,6 @@ class User < ApplicationRecord
 
   has_many :contact_emails, dependent: :destroy
   accepts_nested_attributes_for :contact_emails, allow_destroy: true
-  before_save do
-    puts "Before Save: #{contact_emails.inspect}"
-  end
 
   # Validations
   validates :first_name, presence: true
@@ -45,15 +45,6 @@ class User < ApplicationRecord
     following.include?(other_user)
   end
 
-  # Overriding Devise method to find user by primary email only
-  def self.find_for_database_authentication(warden_conditions)
-    conditions = warden_conditions.dup
-    email = conditions.delete(:email)
-
-    # Search only by primary email
-    where(conditions).where(email: email).first
-  end
-
   private
 
   def normalize_contact_emails
@@ -61,6 +52,4 @@ class User < ApplicationRecord
       contact_email.email = contact_email.email.strip.downcase if contact_email.email.present?
     end
   end
-
-  mount_uploader :profile_picture, ProfilePictureUploader
 end

@@ -4,26 +4,24 @@ class CommentsController < ApplicationController
 
   def create
     @post = Post.find(params[:post_id])
-    @comment = @post.comments.build(comment_params)
-    @comment.user = current_user
-    if @comment.save
-      respond_to do |format|
-        format.html { redirect_to @post }
-        format.js
+    @comment = @post.comments.build(comment_params.merge(user: current_user))
+
+    respond_to do |format|
+      if @comment.save
+        format.turbo_stream
+        format.html { redirect_to @post, notice: "Komentar je dodan." }
+      else
+        format.html { redirect_to @post, alert: "Neuspješno dodavanje komentara." }
       end
-    else
-      flash[:alert] = "Neuspješno dodavanje komentara."
-      redirect_to @post
     end
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
     @comment.destroy
 
     respond_to do |format|
-      format.turbo_stream # Za Turbo Stream odgovore
-      format.html { redirect_to post_path(@comment.post), notice: "Komentar je uspešno obrisan." }
+      format.turbo_stream
+      format.html { redirect_to post_path(@comment.post), notice: "Komentar je uspješno obrisan." }
     end
   end
 
