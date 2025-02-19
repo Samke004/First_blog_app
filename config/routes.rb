@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "notifications/index"
+  get "notifications/show"
   # Devise routes for user authentication
   devise_for :users
 
@@ -39,4 +41,8 @@ resources :users, only: [:show, :edit, :update, :index] do
     resources :comments, only: [:create, :destroy], shallow: true
   end
 end
+
+# Notifications routes
+resources :notifications, only: [:index, :show]
+
 end

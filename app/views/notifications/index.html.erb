@@ -1,0 +1,39 @@
+<h1 class="text-2xl font-bold mb-6 flex justify-between items-center">
+  Obavijesti
+</h1>
+
+<% if @notifications.any? %>
+  <% @notifications.each do |notification| %>
+    <div id="notification-<%= notification.id %>" class="notification mb-4 bg-white shadow-md rounded-lg p-6 border-l-4 
+      <%= notification.read? ? 'border-gray-300' : 'border-blue-500' %>">
+      
+      <% if notification.notifiable.is_a?(Comment) %>
+        <h2 class="text-lg font-semibold text-blue-600 hover:underline">
+          <%= link_to "#{notification.notifiable.user.full_name} je komentirao vašu objavu",
+                      post_path(notification.notifiable.post, anchor: "comment-#{notification.notifiable.id}") %>
+        </h2>
+      <% elsif notification.notifiable.is_a?(User) %>
+        <h2 class="text-lg font-semibold text-blue-600 hover:underline">
+          <%= link_to "#{notification.notifiable.full_name} vas je zapratio",
+                      user_path(notification.notifiable) %>
+        </h2>
+      <% else %>
+        <p class="text-gray-700">Nešto nije u redu s ovom obavijesti.</p>
+      <% end %>
+
+      <p class="text-sm text-gray-500 mt-2">
+        <strong>Vrijeme:</strong> <%= time_ago_in_words(notification.created_at) %> ago
+      </p>
+
+      <% unless notification.read? %>
+        <div class="mt-4">
+          <%= link_to "Označi kao pročitano", notification_path(notification), method: :patch,
+                      class: "bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg shadow-md transition-all" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+<% else %>
+  <p class="text-gray-600 text-center">Trenutno nemate obavijesti.</p>
+<% end %>

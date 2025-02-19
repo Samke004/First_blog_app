@@ -2,6 +2,10 @@ class User < ApplicationRecord
   # Uploaders
   mount_uploader :profile_picture, ProfilePictureUploader
 
+  #Notifications
+  has_many :notifications, foreign_key: :recipient_id, dependent: :destroy
+
+
   # Devise modules
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
