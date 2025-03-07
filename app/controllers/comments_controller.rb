@@ -8,6 +8,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
+        NotificationMailer.new_comment(@comment).deliver_later
         format.turbo_stream
         format.html { redirect_to @post, notice: "Komentar je dodan." }
       else

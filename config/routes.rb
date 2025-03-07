@@ -45,4 +45,7 @@ end
 # Notifications routes
 resources :notifications, only: [:index, :show]
 
+if Rails.env.development?
+  mount LetterOpenerWeb::Engine, at: "/letter_opener"
+end
 end

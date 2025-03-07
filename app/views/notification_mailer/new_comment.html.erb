@@ -1,0 +1,7 @@
+<h1>Novi komentar na <%= @post.title %></h1>
+<p>Korisnik <strong><%= @comment.user.full_name %></strong> je komentirao vašu objavu:</p>
+<blockquote>
+  <%= @comment.content %>
+</blockquote>
+
+<p><a href="<%= post_url(@post) %>">Otvori</a></p>

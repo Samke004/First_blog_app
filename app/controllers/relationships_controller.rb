@@ -9,6 +9,7 @@ class RelationshipsController < ApplicationController
       redirect_to user, alert: "Već pratite ovog korisnika."
     else
       current_user.follow(user)
+      NotificationMailer.new_follower(user,current_user).deliver_later
       redirect_to user, notice: "Počeli ste pratiti korisnika."
     end
   end
