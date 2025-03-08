@@ -10,10 +10,7 @@ class Comment < ApplicationRecord
   def notify_post_author
     return if post.user == user # Ne šaljemo obavijest ako korisnik komentira svoju objavu
 
-    Notification.create!(
-      recipient: post.user,
-      notifiable: self
-    )
+    NotificationJob.perform_later(self, post.user)
   end
 
 
