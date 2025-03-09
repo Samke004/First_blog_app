@@ -1,0 +1,16 @@
+<table>
+  <tr>
+    <th>Naslov</th>
+    <th>Autor</th>
+    <th>Akcije</th>
+  </tr>
+  <% @posts.each do |post| %>
+    <tr>
+      <td><%= post.title %></td>
+      <td><%= post.user.email %></td>
+      <td><%= link_to "Pogledaj", admin_panel_post_path(post) %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= render 'kaminari/paginator', collection: @posts %>

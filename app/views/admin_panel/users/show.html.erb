@@ -1,0 +1,11 @@
+<h1 class="text-2xl font-bold mb-6">Detalji korisnika</h1>
+
+<div class="bg-white shadow-md rounded-lg p-6 border">
+  <p class="text-gray-700"><strong>Ime:</strong> <%= @user.first_name %> <%= @user.last_name %></p>
+  <p class="text-gray-700"><strong>Email:</strong> <%= @user.email %></p>
+  <p class="text-gray-700"><strong>Broj objava:</strong> <%= @user.posts.count %></p>
+
+  <div class="mt-6">
+    <%= link_to "Natrag na popis korisnika", admin_panel_users_path, class: "bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded" %>
+  </div>
+</div>

@@ -1,5 +1,25 @@
 require 'faker'
 
+puts "Seeding admin user..."
+
+admin_email = "admin@example.com"
+unless Admin.exists?(email: admin_email)
+  Admin.create!(
+    first_name: "Admin",
+    last_name: "User",
+    email: admin_email,
+    password: "password",
+    password_confirmation: "password"
+  )
+
+  puts "Created admin user: #{admin_email}"
+else
+  puts "Admin user already exists: #{admin_email}"
+end
+
+
+
+
 puts "Seeding users and posts with images..."
 
 5.times do

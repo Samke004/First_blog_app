@@ -1,0 +1,16 @@
+<h1 class="text-2xl font-bold mb-6">Detalji objave</h1>
+
+<div class="bg-white shadow-md rounded-lg p-6 border">
+  <h2 class="text-xl font-semibold text-gray-800"><%= @post.title %></h2>
+  <p class="text-gray-600 mt-2 mb-4"><%= @post.short_description %></p>
+  <p class="text-gray-700"><strong>Autor:</strong> <%= @post.user.first_name %> <%= @post.user.last_name %></p>
+  <p class="text-gray-700"><strong>Datum objave:</strong> <%= @post.publication_date.strftime("%d.%m.%Y") %></p>
+  <p class="text-gray-800 mt-4"><%= @post.content %></p>
+
+  <div class="mt-6 flex space-x-4">
+    <%= link_to "Natrag na objave", admin_panel_posts_path, class: "bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded" %>
+    <%= button_to "Obriši", admin_panel_post_path(@post), method: :delete, 
+                  data: { turbo_confirm: "Jeste li sigurni da želite obrisati ovu objavu?" }, 
+                  class: "bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg shadow-md" %>
+  </div>
+</div>

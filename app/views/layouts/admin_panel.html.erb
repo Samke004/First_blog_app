@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "application", media: "all" %>
+  <%= javascript_include_tag "application" %>
+</head>
+<body>
+    <nav>
+    <ul>
+      <li><%= link_to "Administratori", admin_panel_administrators_path %></li>
+      <li><%= link_to "Korisnici", admin_panel_users_path %></li>
+      <li><%= link_to "Objave", admin_panel_posts_path %></li>
+      <li><%= link_to "Odjava", destroy_admin_session_path, method: :delete, class: "bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg shadow-md" %></li>
+      </ul>
+  </nav>
+
+
+  <div class="container">
+    <%= yield %>
+  </div>
+</body>
+</html>

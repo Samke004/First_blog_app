@@ -1,0 +1,16 @@
+<h1>Administratori</h1>
+<table>
+  <tr>
+    <th>Ime</th>
+    <th>Prezime</th>
+    <th>Email</th>
+  </tr>
+  <% @administrators.each do |admin| %>
+    <tr>
+      <td><%= admin.first_name %></td>
+      <td><%= admin.last_name %></td>
+      <td><%= admin.email %></td>
+    </tr>
+  <% end %>
+</table>
+<%= render 'kaminari/paginator', collection: @administrators %>
