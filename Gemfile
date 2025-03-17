@@ -49,7 +49,8 @@ gem "faker"
 #Add ActiveStorage, carrierwave, and image_processing
 gem 'carrierwave', '~> 3.0'
 
-
+#Add PgSearch
+gem 'pg_search'
 
 #Add MiniMagick
 gem 'mini_magick'

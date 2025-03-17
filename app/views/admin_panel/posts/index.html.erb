@@ -1,3 +1,40 @@
+<%= form_with url: admin_panel_posts_path, method: :get, local: true, class: "mb-4" do %>
+  <div class="grid grid-cols-4 gap-4">
+    <!-- Search polje -->
+    <div>
+      <%= label_tag :search, "Pretraži" %>
+      <%= text_field_tag :search, params[:search], class: "form-control" %>
+    </div>
+
+    <!-- Select polje za vidljivost -->
+    <div>
+      <%= label_tag :visibility, "Vidljivost" %>
+      <%= select_tag :visibility, options_for_select([
+          ["Sve objave", "all"],
+          ["Javne objave", "public"],
+          ["Privatne objave", "private"]
+        ], selected: params[:visibility]), class: "form-control" %>
+    </div>
+
+    <!-- Datum objave od -->
+    <div>
+      <%= label_tag :from_date, "Datum objave od" %>
+      <%= date_field_tag :from_date, params[:from_date], class: "form-control" %>
+    </div>
+
+    <!-- Datum objave do -->
+    <div>
+      <%= label_tag :to_date, "Datum objave do" %>
+      <%= date_field_tag :to_date, params[:to_date], class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <%= submit_tag "Filtriraj", class: "btn btn-primary" %>
+    <%= link_to "Reset", admin_panel_posts_path, class: "btn btn-secondary ml-2" %>
+  </div>
+<% end %>
+
 <table>
   <tr>
     <th>Naslov</th>
