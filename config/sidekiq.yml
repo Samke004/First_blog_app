@@ -1,0 +1,4 @@
+:schedule:
+  reminder_email_job:
+    cron: "0 12 * * *"  # Pokreće se svaki dan u 12:00
+    class: "ReminderEmailJob"

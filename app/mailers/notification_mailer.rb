@@ -21,5 +21,14 @@ class NotificationMailer < ApplicationMailer
           subject: "Novi pratitelj"
         )
     end
+    
+    def reminder_email(user)
+      @user = user
+  
+      mail(
+        to: @user.email,
+        subject: "Nedostajete nam!"
+      )
+    end
   end
   

@@ -28,5 +28,8 @@ module FirstBlogApp
     
     config.assets.paths << Rails.root.join("app/javascript/vendor")
 
+    config.active_job.queue_adapter = :sidekiq
+
+
   end
 end
