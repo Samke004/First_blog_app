@@ -1,10 +1,11 @@
+require 'httparty'
+
 class User < ApplicationRecord
   # Uploaders
   mount_uploader :profile_picture, ProfilePictureUploader
 
-  #Notifications
+  # Notifications
   has_many :notifications, foreign_key: :recipient_id, dependent: :destroy
-
 
   # Devise modules
   devise :database_authenticatable, :registerable,
@@ -30,6 +31,7 @@ class User < ApplicationRecord
 
   # Callbacks
   before_save :normalize_contact_emails
+  after_create :fetch_country_after_create # Automatski dohvaća državu nakon registracije
 
   # Methods
   def full_name
@@ -49,7 +51,32 @@ class User < ApplicationRecord
     following.include?(other_user)
   end
 
+  def fetch_country_from_ip(ip_address)
+    return if self.country.present? || ip_address.blank? # Ako korisnik već ima državu, ne radi ništa
+
+    api_key = ENV['IPSTACK_API_KEY'] || "bbe27d027ee6cdc6012925f8734f4633"
+    url = "http://api.ipstack.com/#{ip_address}?access_key=#{api_key}"
+
+    Rails.logger.info " Pozivam IPStack API za korisnika #{self.id} s IP adresom: #{ip_address}"
+
+    response = HTTParty.get(url)
+
+    if response.success? && response["country_name"].present?
+      Rails.logger.info " API vratio državu: #{response['country_name']}"
+      self.update(country: response["country_name"]) # Spremi državu u bazu
+    else
+      Rails.logger.error " Greška pri dohvaćanju države: #{response.parsed_response}"
+    end
+  end 
+
   private
+
+  def fetch_country_after_create
+    ip_address = "8.8.8.8" # Postavi testnu IP adresu ako nije dostupna
+    Rails.logger.info " (after_create) Dohvaćam državu za korisnika #{self.id} s IP: #{ip_address}"
+    fetch_country_from_ip(ip_address)
+    Rails.logger.info " (after_create) API postavio državu: #{self.reload.country}"
+  end
 
   def normalize_contact_emails
     contact_emails.each do |contact_email|

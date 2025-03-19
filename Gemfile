@@ -59,6 +59,8 @@ gem 'mini_magick'
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
 
+#Add HTTParty
+gem 'httparty'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
