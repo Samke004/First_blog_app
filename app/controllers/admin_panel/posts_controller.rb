@@ -1,5 +1,6 @@
 module AdminPanel
   class PostsController < ApplicationController
+    layout 'admin_panel'
     def index
       @posts = Post.published
 

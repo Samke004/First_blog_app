@@ -1,25 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="hr">
 <head>
-  <title>Admin Panel</title>
+  <title><%= content_for(:title) || "Admin Panel" %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
-  <%= stylesheet_link_tag "application", media: "all" %>
-  <%= javascript_include_tag "application" %>
+  <%= yield :head %>
+
+  <!-- Favicon i Ikone -->
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" href="/icon.png" type="image/png">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icon.png">
+
+  <!-- Stylesheets -->
+  <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+
+  <!-- JavaScript -->
+  <%= javascript_importmap_tags %>
+  <script type="module" src="<%= asset_path('nested_forms.js') %>"></script>
 </head>
-<body>
-    <nav>
-    <ul>
-      <li><%= link_to "Administratori", admin_panel_administrators_path %></li>
-      <li><%= link_to "Korisnici", admin_panel_users_path %></li>
-      <li><%= link_to "Objave", admin_panel_posts_path %></li>
-      <li><%= link_to "Odjava", destroy_admin_session_path, method: :delete, class: "bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg shadow-md" %></li>
-      </ul>
+
+<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+  <!-- Admin Navbar -->
+  <nav class="bg-gray-800 text-white shadow-lg">
+    <div class="container mx-auto p-4 flex justify-between items-center">
+      <!-- Admin Panel naslov -->
+      <div class="text-lg font-semibold">
+      <%= link_to "Admin Panel", admin_panel_root_path, class: "hover:underline" %>
+
+      </div>
+
+      <!-- Admin Navigacija -->
+      <div class="flex items-center space-x-6">
+        <%= link_to "Administratori", admin_panel_administrators_path, class: "hover:underline" %>
+        <%= link_to "Korisnici", admin_panel_users_path, class: "hover:underline" %>
+        <%= link_to "Objave", admin_panel_posts_path, class: "hover:underline" %>
+        <%= link_to "Postavke", edit_admin_app_setting_path, class: "hover:underline" %>
+        <%= link_to "Odjava", destroy_admin_session_path, method: :delete, data: { turbo_method: :delete }, class: "hover:text-red-400" %>
+      </div>
+    </div>
   </nav>
 
-
-  <div class="container">
+  <!-- Glavni sadržaj -->
+  <main class="container mx-auto flex-grow mt-8 px-6 py-10 bg-white shadow-md rounded-lg">
     <%= yield %>
-  </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-gray-200 py-4">
+    <div class="container mx-auto text-center">
+      <p>&copy; <%= Time.current.year %> Admin Panel. Sva prava pridržana.</p>
+    </div>
+  </footer>
 </body>
 </html>

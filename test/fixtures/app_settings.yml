@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  remind_after_quantity: 1
+  remind_after_unit: MyString
+  reminder_email_text: MyText
+
+two:
+  remind_after_quantity: 1
+  remind_after_unit: MyString
+  reminder_email_text: MyText

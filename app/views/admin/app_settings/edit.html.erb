@@ -1,0 +1,22 @@
+<h1>Uredi Postavke Podsjetnika</h1>
+
+<%= form_with model: @app_setting, url: admin_app_setting_path, method: :patch do |f| %>
+  <div>
+    <%= f.label :remind_after_quantity, "Vrijeme između podsjetnika" %>
+    <%= f.number_field :remind_after_quantity %>
+  </div>
+
+  <div>
+    <%= f.label :remind_after_unit, "Jedinica vremena" %>
+    <%= f.select :remind_after_unit, [["Dani", "days"], ["Mjeseci", "months"]] %>
+  </div>
+
+  <div>
+    <%= f.label :reminder_email_text, "Tekst podsjetnika" %>
+    <%= f.text_area :reminder_email_text, rows: 5 %>
+  </div>
+
+  <div>
+    <%= f.submit "Spremi", class: "btn btn-primary" %>
+  </div>
+<% end %>

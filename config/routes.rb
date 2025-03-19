@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  # ✅ Devise rute za administratore (bez registracije)
+  namespace :admin do
+    get "app_settings/edit"
+    get "app_settings/update"
+  end
   devise_for :admins, path: "admin", skip: [:registrations]
   
   namespace :admin_panel, path: "admin" do
@@ -9,30 +12,24 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :show] do
       get :posts, on: :member
     end
-    resources :posts, only: [:index, :show]
+    resources :posts, only: [:index, :show, :edit, :update, :destroy]
   end
   
   
 
-  # ✅ Devise rute za obične korisnike
   devise_for :users
 
-  # ✅ Health check ruta
   get "up", to: "rails/health#show", as: :rails_health_check
 
-  # ✅ Routes za PWA
   get "service-worker", to: "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest", to: "rails/pwa#manifest", as: :pwa_manifest
 
-  # ✅ Root path
   root "pages#home"
 
-  # ✅ Global posts routes
   resources :posts, only: [:index, :show] do
     resources :comments, only: [:create, :destroy], shallow: true
   end
 
-  # ✅ User routes
   resources :users, only: [:show, :edit, :update, :index] do
     member do
       get :following
@@ -49,11 +46,14 @@ Rails.application.routes.draw do
     end
   end
 
-  # ✅ Notifications routes
   resources :notifications, only: [:index, :show]
 
-  # ✅ LetterOpener za razvoj
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
+
+  namespace :admin do
+    resource :app_setting, only: [:edit, :update]
+  end
+  
 end
