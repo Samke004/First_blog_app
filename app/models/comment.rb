@@ -12,6 +12,4 @@ class Comment < ApplicationRecord
 
     NotificationJob.perform_later(self, post.user)
   end
-
-
 end

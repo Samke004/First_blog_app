@@ -19,5 +19,3 @@ class Relationship < ApplicationRecord
         )
       end
 end
-
-

@@ -1,22 +1,13 @@
 module AdminPanel
   class PostsController < ApplicationController
-    layout 'admin_panel'
+    layout "admin_panel"
     def index
+      filters = params.to_unsafe_h.slice(:search, :visibility, :from_date, :to_date)
       @posts = Post.published
-
-      # Pretraga
-      @posts = @posts.search_by_title_and_content(params[:search]) if params[:search].present?
-
-      # Filtriranje prema vidljivosti
-      @posts = @posts.filter_by_visibility(params[:visibility]) if params[:visibility].present?
-
-      # Filtriranje prema datumu objave
-      @posts = @posts.filter_by_date_range(params[:from_date], params[:to_date])
-
-      # Paginacija i sortiranje
-      @posts = @posts.order(publication_date: :desc).page(params[:page])
+                   .filter_records(filters)
+                   .order(publication_date: :desc)
+                   .page(params[:page])
     end
-
     def show
       @post = Post.find_by(id: params[:id])
       unless @post

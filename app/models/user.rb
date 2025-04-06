@@ -1,4 +1,4 @@
-require 'httparty'
+require "httparty"
 
 class User < ApplicationRecord
   # Uploaders
@@ -52,22 +52,20 @@ class User < ApplicationRecord
   end
 
   def fetch_country_from_ip(ip_address)
-    return if self.country.present? || ip_address.blank? # Ako korisnik već ima državu, ne radi ništa
+    return if country.present? || ip_address.blank?
 
-    api_key = ENV['IPSTACK_API_KEY'] || "bbe27d027ee6cdc6012925f8734f4633"
-    url = "http://api.ipstack.com/#{ip_address}?access_key=#{api_key}"
+    Rails.logger.info "(User ##{id}) Pozivam servis za dohvaćanje države s IP: #{ip_address}"
 
-    Rails.logger.info " Pozivam IPStack API za korisnika #{self.id} s IP adresom: #{ip_address}"
+    country_name = Ipstack::GetCountryFromIp.new(ip_address).call
 
-    response = HTTParty.get(url)
-
-    if response.success? && response["country_name"].present?
-      Rails.logger.info " API vratio državu: #{response['country_name']}"
-      self.update(country: response["country_name"]) # Spremi državu u bazu
+    if country_name.present?
+      update(country: country_name)
+      Rails.logger.info "(User ##{id}) Država postavljena na: #{country_name}"
     else
-      Rails.logger.error " Greška pri dohvaćanju države: #{response.parsed_response}"
+      Rails.logger.error "(User ##{id}) Neuspješno dohvaćanje države za IP: #{ip_address}"
     end
-  end 
+  end
+
 
   private
 

@@ -45,8 +45,8 @@ puts "Seeding users and posts with images..."
           short_description: Faker::Lorem.sentence(word_count: 10),
           content: Faker::Lorem.paragraphs(number: 3).join("\n\n"),
           publication_date: Faker::Date.between(from: 2.years.ago, to: Date.today),
-          public: [true, false].sample,
-          published: [true, false].sample,
+          public: [ true, false ].sample,
+          published: [ true, false ].sample,
           image: File.exist?(image_path) ? File.open(image_path) : nil
         )
 
@@ -89,8 +89,8 @@ puts "Seeding users and posts with images..."
           short_description: Faker::Lorem.sentence(word_count: 10),
           content: Faker::Lorem.paragraphs(number: 3).join("\n\n"),
           publication_date: Faker::Date.between(from: 2.years.ago, to: Date.today),
-          public: [true, false].sample,
-          published: [true, false].sample,
+          public: [ true, false ].sample,
+          published: [ true, false ].sample,
           image: File.exist?(image_path) ? File.open(image_path) : nil
         )
 

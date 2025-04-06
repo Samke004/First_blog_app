@@ -6,7 +6,7 @@ class Post < ApplicationRecord
   # pg_search za pretragu po naslovu i kratkom sadržaju
   include PgSearch::Model
   pg_search_scope :search_by_title_and_content,
-    against: [:title, :short_content],
+    against: [ :title, :short_content ],
     using: { tsearch: { prefix: true } }
 
   # Scope za objavljene objave
@@ -34,4 +34,11 @@ class Post < ApplicationRecord
     query = query.where("publication_date <= ?", to_date) if to_date.present?
     query
   }
+  def self.filter_records(filters = {})
+  result = all
+  result = result.search_by_title_and_content(filters[:search]) if filters[:search].present?
+  result = result.filter_by_visibility(filters[:visibility]) if filters[:visibility].present?
+  result = result.filter_by_date_range(filters[:from_date], filters[:to_date])
+  result
+end
 end

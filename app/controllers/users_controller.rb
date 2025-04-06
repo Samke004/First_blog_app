@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, only: [:following, :followers, :update]
-  before_action :set_user, only: [:show, :following, :followers, :update]
-  before_action :check_permissions, only: [:update]
+  before_action :authenticate_user!, only: [ :following, :followers, :update ]
+  before_action :set_user, only: [ :show, :following, :followers, :update ]
+  before_action :check_permissions, only: [ :update ]
 
   def index
     @users = User.order(:first_name).page(params[:page]).per(10) # Dodana paginacija i sortiranje
@@ -13,13 +13,13 @@ class UsersController < ApplicationController
   def following
     @title = "Praćenje"
     @users = @user.following.page(params[:page]).per(10)
-    render 'show_follow'
+    render "show_follow"
   end
 
   def followers
     @title = "Pratitelji"
     @users = @user.followers.page(params[:page]).per(10)
-    render 'show_follow'
+    render "show_follow"
   end
 
   def create
@@ -69,15 +69,15 @@ class UsersController < ApplicationController
   end
 
   def fetch_country_for(user)
-    ip_address = request.env['HTTP_X_FORWARDED_FOR']&.split(',')&.first || request.remote_ip
-    ip_address ||= "8.8.8.8" 
+    ip_address = request.env["HTTP_X_FORWARDED_FOR"]&.split(",")&.first || request.remote_ip
+    ip_address ||= "8.8.8.8"
     Rails.logger.info "📢 IP adresa za korisnika #{user.id}: #{ip_address}" # Log IP adrese
     user.fetch_country_from_ip(ip_address)
     Rails.logger.info "🌍 Zemlja korisnika #{user.id}: #{user.reload.country}" # Log rezultata
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :country, 
-                                 contact_emails_attributes: [:id, :email, :_destroy])
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :country,
+                                 contact_emails_attributes: [ :id, :email, :_destroy ])
   end
 end

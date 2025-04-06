@@ -13,5 +13,3 @@ class Notification < ApplicationRecord
     read_at.present?
   end
 end
- 
- 

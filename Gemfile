@@ -34,33 +34,33 @@ gem "bootsnap", require: false
 
 
 
-#Add Kaminari
-gem 'kaminari', '~> 1.2'
+# Add Kaminari
+gem "kaminari", "~> 1.2"
 
-#Add TailwindCSS
+# Add TailwindCSS
 gem "tailwindcss-rails"
 
-#Add Devise
+# Add Devise
 gem "devise"
 
-#Add faker
+# Add faker
 gem "faker"
 
-#Add ActiveStorage, carrierwave, and image_processing
-gem 'carrierwave', '~> 3.0'
+# Add ActiveStorage, carrierwave, and image_processing
+gem "carrierwave", "~> 3.0"
 
-#Add PgSearch
-gem 'pg_search'
+# Add PgSearch
+gem "pg_search"
 
-#Add MiniMagick
-gem 'mini_magick'
+# Add MiniMagick
+gem "mini_magick"
 
-#Add Sidekiq
-gem 'sidekiq'
-gem 'sidekiq-scheduler'
+# Add Sidekiq
+gem "sidekiq"
+gem "sidekiq-scheduler"
 
-#Add HTTParty
-gem 'httparty'
+# Add HTTParty
+gem "httparty"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
@@ -82,6 +82,9 @@ group :development do
   gem "pry-rails"
   gem "letter_opener"
   gem "letter_opener_web"
+  gem "rubocop", require: false
+  gem "rubocop-rails-omakase", require: false
+  gem "ruby-lsp", require: false
   end
 
 group :test do

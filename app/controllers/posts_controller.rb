@@ -1,12 +1,12 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_user, only: [:index]
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :authorize_user, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, except: [ :index, :show ]
+  before_action :set_user, only: [ :index ]
+  before_action :set_post, only: [ :show, :edit, :update, :destroy ]
+  before_action :authorize_user, only: [ :edit, :update, :destroy ]
 
   def index
   @user = User.find(params[:user_id])
-  sort_order = params[:sort] == 'asc' ? :asc : :desc
+  sort_order = params[:sort] == "asc" ? :asc : :desc
 
   if @user == current_user
     @posts = @user.posts.order(publication_date: sort_order).page(params[:page]).per(5)
@@ -16,7 +16,7 @@ class PostsController < ApplicationController
     @posts = @user.posts.public_posts.order(publication_date: sort_order).page(params[:page]).per(5)
   end
 end
-  
+
 
   def show
     # Provjeri vidljivost
@@ -50,18 +50,18 @@ end
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
-  
+
     respond_to do |format|
       format.turbo_stream # Turbo Stream odgovor za dinamičko ažuriranje
       format.html { redirect_to user_posts_path(@post.user), notice: "Objava je uspešno obrisana." }
     end
   end
-  
-  
-  
-  
-    
-    
+
+
+
+
+
+
 
   private
 
